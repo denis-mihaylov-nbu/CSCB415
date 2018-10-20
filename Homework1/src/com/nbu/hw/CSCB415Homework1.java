@@ -2,43 +2,24 @@ package com.nbu.hw;
 
 import com.nbu.hw.Goods.Computer;
 import com.nbu.hw.Goods.Fuel;
-import com.nbu.hw.Goods.Meat;
 
 public class CSCB415Homework1 {
 
 	public static void main(String[] args) {
 
-		Goods g = new Goods();
-
-		Truck<Computer> dumpTruck = new Truck<Computer>(20);
-		Truck<Fuel> tanker = new Truck<Fuel>(20);
-		Truck<Meat> refrigeratorTruck = new Truck<Meat>(20);
+		Computer laptops = new Goods().new Computer(true);
+		Goods bricks = new Goods("Bricks", GoodsType.Standart);
+		Fuel gas = new Goods().new Fuel(true);
 		
-		Computer computer = g.new Computer(true);
-		Fuel fuel = g.new Fuel(true);
-		Meat meat = g.new Meat(true);
+		
+		Truck<Goods> truck = new Truck<Goods>(TruckType.DumpTruck, 5000, 0);
 
 		try {
-			dumpTruck.load(computer, 5);
-			System.out.println("dumpTruck = " + dumpTruck);
-		} catch (LoadTooBigException e) {
-			e.printStackTrace(System.err);
-		} catch (InvalidLoadRequestedException e) {
-			e.printStackTrace(System.err);
-		}
-
-		try {
-			tanker.load(fuel, 5);
-			System.out.println("tanker = " + tanker);
-		} catch (LoadTooBigException e) {
-			e.printStackTrace(System.err);
-		} catch (InvalidLoadRequestedException e) {
-			e.printStackTrace(System.err);
-		}
-
-		try {
-			refrigeratorTruck.load(meat, 2);
-			System.out.println("refrigeratorTruck = " + refrigeratorTruck);
+			truck.load(laptops, 2000);
+			truck.load(bricks, 1000);
+			truck.load(gas, 1000);
+			truck.load(laptops, 1000);
+			System.out.println("truck = " + truck);
 		} catch (LoadTooBigException e) {
 			e.printStackTrace(System.err);
 		} catch (InvalidLoadRequestedException e) {
