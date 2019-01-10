@@ -43,6 +43,15 @@ public class Attraction {
 		return name + ", " + attractionType;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		boolean isEqual = false;
+		if (o instanceof Attraction) {
+			isEqual = o.toString().equals(this.toString());
+		}
+		return isEqual;
+	}
+
 	
 	
 }

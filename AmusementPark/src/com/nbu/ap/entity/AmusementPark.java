@@ -40,7 +40,6 @@ public class AmusementPark {
 			@JoinColumn(name = "amusement_park_id", nullable = false, updatable = false) }, inverseJoinColumns = {
 					@JoinColumn(name = "attraction_id", nullable = false, updatable = false) })
 	private Set<Attraction> attractions = new HashSet<Attraction>(0);
-	
 
 	@Column
 	@ElementCollection(targetClass = Ticket.class)
@@ -50,7 +49,7 @@ public class AmusementPark {
 	@ManyToOne(targetEntity = Manager.class, fetch = FetchType.EAGER)
 	@JoinColumn(name = "manager_id")
 	private Manager manager;
-	
+
 	@Column(name = "income_treshold")
 	private Double incomeTreshold;
 
@@ -112,8 +111,15 @@ public class AmusementPark {
 		}
 		return income;
 	}
-	
-	
+
+	public Double getIncomeTreshold() {
+		return incomeTreshold;
+	}
+
+	public void setIncomeTreshold(Double incomeTreshold) {
+		this.incomeTreshold = incomeTreshold;
+	}
+
 	@Override
 	public String toString() {
 		return name + ", " + manager.getName() + ", " + getCurrentIncome() + " / " + incomeTreshold;

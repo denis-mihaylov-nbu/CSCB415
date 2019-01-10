@@ -2,6 +2,7 @@ package com.nbu.ap.view.pane;
 
 import com.nbu.ap.DBManager;
 import com.nbu.ap.entity.AmusementPark;
+import com.nbu.ap.entity.Manager;
 import com.nbu.ap.entity.Ticket;
 import com.nbu.ap.view.UserView;
 
@@ -48,7 +49,7 @@ public class TicketPane extends GridPane {
 			@Override
 			public void handle(ActionEvent e) {
 				try {
-					saveAmusementPark(e);
+					saveTicket(e);
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
@@ -64,9 +65,18 @@ public class TicketPane extends GridPane {
 		add(cancel, 1, 2);
 	}
 
-	private void saveAmusementPark(ActionEvent event) throws Exception {
-		ticket = new Ticket(amusementParksComboBox.getValue(), Double.valueOf(priceField.getText()));
+	private void saveTicket(ActionEvent event) throws Exception {
+		AmusementPark amusementPark = amusementParksComboBox.getValue();
+		Double price = Double.valueOf(priceField.getText());
+		ticket = new Ticket(amusementPark, price);
 		DBManager.create(ticket);
+		if (amusementPark.getCurrentIncome() < amusementPark.getIncomeTreshold()) {
+			if (amusementPark.getCurrentIncome() + price >= amusementPark.getIncomeTreshold()) {
+				Manager manager = amusementPark.getManager();
+				manager.setSalary(manager.getSalary() * 1.3);
+				DBManager.update(manager);
+			}
+		}
 		userView.restart();
 	}
 	

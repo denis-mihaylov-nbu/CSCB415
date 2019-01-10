@@ -40,7 +40,7 @@ public class ManagerPane extends GridPane {
 
 	private void init() {
 		
-		reinitListView();
+		initListView();
 		
 		save.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -62,7 +62,7 @@ public class ManagerPane extends GridPane {
 		add(cancel, 1, 3);
 	}
 	
-	private void reinitListView() {
+	private void initListView() {
 		ObservableList<Manager> items = FXCollections.observableArrayList(DBManager.read(Manager.class));
 		managerListView.setItems(items);	
 	}
@@ -70,7 +70,7 @@ public class ManagerPane extends GridPane {
 	private void saveManager(ActionEvent event) throws Exception {
 		manager = new Manager(nameField.getText(), Double.valueOf(salaryField.getText()));
 		DBManager.create(manager);
-		reinitListView();
+		initListView();
 		userView.restart();
 	}
 	

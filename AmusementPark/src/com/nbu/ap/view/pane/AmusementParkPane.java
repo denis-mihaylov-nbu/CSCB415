@@ -104,12 +104,15 @@ public class AmusementParkPane extends GridPane {
 		add(attractionsComboBox, 1, 4);
 		add(attractionAdd, 2, 4);
 		add(attractionsListView, 0, 5, 2, 1);
-		add(save, 0, 5);
-		add(cancel, 1, 5);
+		add(save, 0, 6);
+		add(cancel, 1, 6);
 	}
 
 	private void saveAmusementPark(ActionEvent event) throws Exception {
 		if (amusementPark != null && amusementPark.getId() > 0) {
+			amusementPark.setManager(managersComboBox.getValue());
+			amusementPark.setName(nameField.getText());
+			amusementPark.setIncomeTreshold(Double.valueOf(incomeTresholdField.getText()));
 			amusementPark.setAttractions(attractionsListView.getItems());
 			DBManager.update(amusementPark);
 		} else {
@@ -129,6 +132,7 @@ public class AmusementParkPane extends GridPane {
 		this.amusementPark = amusementPark;
 		nameField.setText(amusementPark.getName());
 		managersComboBox.setValue(amusementPark.getManager());
+		incomeTresholdField.setText(String.valueOf(amusementPark.getIncomeTreshold()));
 		attractionsListView.setItems(FXCollections.observableArrayList(amusementPark.getAttractions()));
 	}
 	
